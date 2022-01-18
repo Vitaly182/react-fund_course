@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import ClassCounter from "./components/ClassCounter";
 import Counter from "./components/Counter";
+import './styles/App.css';
 
 function App() {
-  const [likes, setLikes] = useState(0);
-  const [value, setValue] = useState('Текст в input');
+  
 
 
   return (
     <div className="App">
-      <Counter />
-      <Counter />
-      <Counter />
-
-      <ClassCounter />
-      <ClassCounter />
-      <ClassCounter />
-
-
+      <div className="post">
+        <div className="post__content">
+          <strong>1. Javascript</strong>
+          <div>
+            Javascript - язык программирования
+          </div>
+        </div>
+        <div className="post__btns">
+          <button>Удалить</button>
+        </div>
+      </div>
     </div>
   );
 }
