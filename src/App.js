@@ -20,6 +20,11 @@ function App() {
 
   return (
     <div className="App">
+      <form>
+        <input type='text' placeholder='Название поста' />
+        <input type='text' placeholder='Описание поста' />
+        <button>Создать пост</button>
+      </form>
       <PostList posts={posts_1} title='Посты про JS' />
       <PostList posts={posts_2} title='Посты про Python' />
     </div>
