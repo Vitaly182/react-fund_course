@@ -4,6 +4,8 @@ import Counter from "./components/Counter";
 import PostItem from "./components/PostItem";
 import PostList from "./components/PostList";
 import './styles/App.css';
+import MyButton from "./components/UI/button/MyButton";
+import MyInput from "./components/UI/input/MyInput";
 
 function App() {
   const [posts_1, setPOsts_1] = useState([
@@ -17,13 +19,24 @@ function App() {
     {id: 3, title: 'Python 3', body: 'Description 3'},
   ])
 
+  const [title, setTitle] = useState('')
+
+  const addNewPost = () => {
+    console.log(title)
+  }
 
   return (
     <div className="App">
       <form>
-        <input type='text' placeholder='Название поста' />
-        <input type='text' placeholder='Описание поста' />
-        <button>Создать пост</button>
+        {/* Управляемый компонент */}
+        <MyInput 
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          type='text' 
+          placeholder='Название поста' 
+        />
+        <MyInput type='text' placeholder='Описание поста' />
+        <MyButton onClick={addNewPost}>Создать пост</MyButton>
       </form>
       <PostList posts={posts_1} title='Посты про JS' />
       <PostList posts={posts_2} title='Посты про Python' />
