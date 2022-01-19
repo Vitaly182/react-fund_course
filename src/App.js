@@ -21,7 +21,8 @@ function App() {
 
   const [title, setTitle] = useState('')
 
-  const addNewPost = () => {
+  const addNewPost = (e) => {
+    e.preventDefault()
     console.log(title)
   }
 
