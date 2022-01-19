@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ClassCounter from "./components/ClassCounter";
 import Counter from "./components/Counter";
 import PostItem from "./components/PostItem";
@@ -8,22 +8,22 @@ import MyButton from "./components/UI/button/MyButton";
 import MyInput from "./components/UI/input/MyInput";
 
 function App() {
-  const [posts_1, setPOsts_1] = useState([
+  const [posts, setPosts] = useState([
     {id: 1, title: 'Javascript 1', body: 'Description 1'},
     {id: 2, title: 'Javascript 2', body: 'Description 2'},
     {id: 3, title: 'Javascript 3', body: 'Description 3'},
   ])
-  const [posts_2, setPOsts_2] = useState([
-    {id: 1, title: 'Python 1', body: 'Description 1'},
-    {id: 2, title: 'Python 2', body: 'Description 2'},
-    {id: 3, title: 'Python 3', body: 'Description 3'},
-  ])
 
-  const [title, setTitle] = useState('')
+  const [post, setPost] = useState({title: '', body: ''})
+
+
+  // const bodyInputRef = useRef();
+
 
   const addNewPost = (e) => {
     e.preventDefault()
-    console.log(title)
+    setPosts([...posts, {...post, id: Date.now()}])
+    setPost({title: '', body: ''})
   }
 
   return (
@@ -31,16 +31,26 @@ function App() {
       <form>
         {/* Управляемый компонент */}
         <MyInput 
-          value={title}
-          onChange={e => setTitle(e.target.value)}
+          value={post.title}
+          onChange={e => setPost({...post,  title: e.target.value})}
           type='text' 
           placeholder='Название поста' 
         />
-        <MyInput type='text' placeholder='Описание поста' />
+        <MyInput 
+          value={post.body}
+          onChange={e => setPost({...post,  body: e.target.value})}
+          type='text' 
+          placeholder='Описание поста' 
+        />
+        {/* Неуправляемый\Неконтролируемый компонент */}
+        {/* <MyInput 
+          ref={bodyInputRef}
+          type='text' 
+          placeholder='Описание поста' 
+        /> */}
         <MyButton onClick={addNewPost}>Создать пост</MyButton>
       </form>
-      <PostList posts={posts_1} title='Посты про JS' />
-      <PostList posts={posts_2} title='Посты про Python' />
+      <PostList posts={posts} title='Посты про JS' />
     </div>
   );
 }
