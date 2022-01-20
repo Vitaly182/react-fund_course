@@ -19,6 +19,7 @@ function App() {
   const [filter, setFilter] = useState({sort: '', query: ''})
   const [modal, setModal] = useState(false);
   const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   useEffect(() => {
     fetchPosts()
@@ -30,8 +31,12 @@ function App() {
   }
 
   async function fetchPosts() {
-    const posts = await PostService.getAll();
-    setPosts(posts)
+    setIsPostsLoading(true);
+    setTimeout(async() => {
+      const posts = await PostService.getAll();
+      setPosts(posts)
+      setIsPostsLoading(false);
+    }, 1000)
   }
 
   //Получаем post из дочернего компонента
@@ -53,7 +58,10 @@ function App() {
         filter={filter} 
         setFilter={setFilter} 
       />
-      <PostList remove={removePost} posts={sortedAndSearchPosts} title='Посты про JS' />
+      {isPostsLoading
+        ? <h1>Идёт загрузка......</h1>
+        : <PostList remove={removePost} posts={sortedAndSearchPosts} title='Посты про JS' />
+      } 
     </div>
   );
 }
